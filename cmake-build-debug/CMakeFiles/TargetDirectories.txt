@@ -1,0 +1,3 @@
+/Users/hester/Documents/Clion/matrix /cmake-build-debug/CMakeFiles/matrix_.dir
+/Users/hester/Documents/Clion/matrix /cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/hester/Documents/Clion/matrix /cmake-build-debug/CMakeFiles/rebuild_cache.dir

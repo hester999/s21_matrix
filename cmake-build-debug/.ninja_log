@@ -1,0 +1,14 @@
+# ninja log v5
+1	60	1708853056263859404	build.ninja	39249834fa49fde0
+0	171	1708811246451692828	CMakeFiles/matrix_.dir/main.c.o	aea93723b8dcbf31
+0	174	1708811246456014356	CMakeFiles/matrix_.dir/s21_matrix.c.o	df8b2c9c4a627090
+174	296	1708811246575054195	matrix_	7b4e14178d87418d
+0	141	1708853189608093208	CMakeFiles/matrix_.dir/main.c.o	aea93723b8dcbf31
+1	170	1708853189638213042	CMakeFiles/matrix_.dir/s21_test_matrix.c.o	4dfed4da24d70b17
+1	173	1708853189641571365	CMakeFiles/matrix_.dir/s21_matrix.c.o	df8b2c9c4a627090
+0	170	1708860115901934123	CMakeFiles/matrix_.dir/main.c.o	aea93723b8dcbf31
+0	170	1708860115901926373	CMakeFiles/matrix_.dir/s21_test_matrix.c.o	4dfed4da24d70b17
+0	173	1708860115905986692	CMakeFiles/matrix_.dir/s21_matrix.c.o	df8b2c9c4a627090
+1	27	1708860123372965330	CMakeFiles/matrix_.dir/s21_test_matrix.c.o	4dfed4da24d70b17
+1	40	1708860123386080554	CMakeFiles/matrix_.dir/main.c.o	aea93723b8dcbf31
+40	75	1708860123420935878	matrix_	f3dfc3bea663bdc5
