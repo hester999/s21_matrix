@@ -164,12 +164,17 @@ int s21_mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
 int s21_transpose(matrix_t *A, matrix_t *result) {
   int err = 0;
   if (s21_valid_matrix(A)) {
-    err = s21_create_matrix(A->rows, A->columns, result);
-    for (int i = 0; i < A->rows; i++) {
-      for (int j = 0; j < A->columns; j++) {
-        result->matrix[j][i] = A->matrix[i][j];
-      }
+    err = s21_create_matrix(A->columns, A->rows, result);
+    if(s21_valid_matrix(result)){
+        for (int i = 0; i < A->rows; i++) {
+            for (int j = 0; j < A->columns; j++) {
+                result->matrix[j][i] = A->matrix[i][j];
+            }
+        }
+    }else{
+        err =1 ;
     }
+
   } else {
     err = 1;
   }
