@@ -5,8 +5,9 @@
 int s21_create_matrix(int rows, int columns, matrix_t *result) {
   int err = 0;
 
-  if (rows < 1 || columns < 1) {
+  if (rows < 1 || columns < 1 || result == NULL) {
     err = 1;
+    result->matrix = NULL;
   } else {
     result->rows = rows;
     result->columns = columns;
@@ -24,13 +25,15 @@ int s21_create_matrix(int rows, int columns, matrix_t *result) {
 }
 
 void s21_remove_matrix(matrix_t *A) {
-  if (A->matrix) {
+
+  if (A->matrix != NULL) {
     for (int i = 0; i < A->rows; i++) {
       free(A->matrix[i]);
     }
     free(A->matrix);
     A->matrix = NULL;
   }
+
   A->rows = 0;
   A->columns = 0;
 }
@@ -115,6 +118,7 @@ int s21_mult_number(matrix_t *A, double number, matrix_t *result) {
   if (isnan(number) || isinf(number)) {
     return 1;
   }
+
   if (s21_valid_matrix(A)) {
     s21_create_matrix(A->rows, A->columns, result);
     for (int i = 0; i < A->rows; i++) {
@@ -132,13 +136,15 @@ int s21_mult_number(matrix_t *A, double number, matrix_t *result) {
 int s21_mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
   int err = 0;
   if (s21_valid_matrix(A) && s21_valid_matrix(B)) {
-    if (A->rows == B->columns) {
+    if (A->columns == B->rows) {
       err = s21_create_matrix(A->rows, B->columns, result);
       for (int i = 0; i < A->rows; i++) {
         for (int j = 0; j < B->columns; j++) {
-          for (int k = 0; k < A->rows; k++) {
-            result->matrix[i][j] += A->matrix[i][k] * B->matrix[k][j];
-          }
+              double sum = 0;
+              for (int k = 0; k < B->rows; k++) {
+                sum  = sum +A->matrix[i][k] * B->matrix[k][j];
+              }
+          result->matrix[i][j] = sum;
         }
       }
     } else {
@@ -149,6 +155,11 @@ int s21_mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
   }
   return err;
 }
+
+
+
+
+
 
 int s21_transpose(matrix_t *A, matrix_t *result) {
   int err = 0;
