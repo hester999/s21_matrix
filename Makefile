@@ -8,7 +8,7 @@ s21_matrix.a:
 	gcc $(FLAGS) -c s21_matrix.c
 	ar rc s21_matrix.a  s21_matrix.o
 	rm s21_matrix.o
-
+#
 #test:
 #		gcc $(FLAGS) -c  s21_test.c
 #		gcc $(FLAGS) -c s21_matrix.c --coverage
@@ -27,4 +27,4 @@ gcov_report: test
 
 
 clean:
-	rm -rf *.o s21_test *.gcda *.gcno coverage-html coverage.info s21_matrix.a
+	rm -rf *.o s21_test *.gcda *.gcno coverage-html coverage.info s21_matrix.a ./test

@@ -14,7 +14,7 @@ START_TEST(s21_calc_complements_null2) {
 START_TEST(s21_calc_complements_test1) {
   matrix_t A = {0}, result = {0};
   s21_create_matrix(1, 1, &A);
-  ck_assert_int_eq(OK, s21_calc_complements(&A, &result));
+  ck_assert_int_eq(0, s21_calc_complements(&A, &result));
   ck_assert_ldouble_eq_tol(1, result.matrix[0][0], 1e-06);
   s21_remove_matrix(&A);
   s21_remove_matrix(&result);
@@ -37,7 +37,7 @@ START_TEST(s21_calc_complements_test2) {
   matrix_t A = {0}, result = {0};
   s21_create_matrix(1, 1, &A);
   A.matrix[0][0] = -6575.456343;
-  ck_assert_int_eq(OK, s21_calc_complements(&A, &result));
+  ck_assert_int_eq(0, s21_calc_complements(&A, &result));
 
   ck_assert_ldouble_eq_tol(1, result.matrix[0][0], 1e-06);
   s21_remove_matrix(&A);

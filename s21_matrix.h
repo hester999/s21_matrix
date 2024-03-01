@@ -5,6 +5,7 @@
 #define SUCCESS 1
 #define FAILURE 0
 
+
 typedef struct matrix_struct {
   double **matrix;
   int rows;
@@ -25,5 +26,8 @@ int s21_get_minor(matrix_t *A, matrix_t *minor_matrix, int remove_row,
                   int remove_colum);
 int s21_determinant(matrix_t *A, double *result);
 int s21_inverse_matrix(matrix_t *A, matrix_t *result);
+
+
+
 
 #endif

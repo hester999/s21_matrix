@@ -115,7 +115,7 @@ int s21_sub_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
 
 int s21_mult_number(matrix_t *A, double number, matrix_t *result) {
   int err = 0;
-  if (isnan(number) || isinf(number)) {
+  if (isnan(number) || isinf(number) || result == NULL) {
     return 1;
   }
 
@@ -190,15 +190,21 @@ int s21_calc_complements(matrix_t *A, matrix_t *result) {
       for (int i = 0; i < A->rows; i++) {
         for (int j = 0; j < A->columns; j++) {
           matrix_t minor_matrix = {0};
-          err = s21_create_matrix(A->rows - 1, A->columns - 1, &minor_matrix);
-          if (!err) {
-            s21_get_minor(A, &minor_matrix, i, j);
-          }
-          double temp = 0;
-          s21_determinant(&minor_matrix, &temp);
-          result->matrix[i][j] = pow(-1, i + j) * temp;
+          if(A->rows ==1){
+              err = s21_create_matrix(1,1,result);
+              result->matrix[0][0] = 1;
+          }else{
+              err = s21_create_matrix(A->rows - 1, A->columns - 1, &minor_matrix);
 
-          s21_remove_matrix(&minor_matrix);
+              if (!err) {
+                err = s21_get_minor(A, &minor_matrix, i, j);
+              }
+              double temp = 0;
+              s21_determinant(&minor_matrix, &temp);
+              result->matrix[i][j] = pow(-1, i + j) * temp;
+
+              s21_remove_matrix(&minor_matrix);
+          }
         }
       }
     } else {
@@ -286,22 +292,21 @@ int s21_inverse_matrix(matrix_t *A, matrix_t *result) {
   if (s21_valid_matrix(A)) {
     err = s21_create_matrix(A->rows, A->columns, result);
 
-    if (A->rows == 1 && s21_valid_matrix(result)) {
+    if (A->rows == 1 && s21_valid_matrix(result) && (A->matrix[0][0]!= 0)) {
       result->matrix[0][0] = (1 / A->matrix[0][0]);
     } else {
       double det = 0;
-      matrix_t temp = {0};
-      err = s21_create_matrix(A->rows, A->columns, &temp);
-      s21_determinant(A, &det);
+      err = s21_determinant(A, &det);
       if (det == 0 && !err) {
         err = 2;
       } else if (det != 0 && !err) {
         matrix_t temp_matrix = {0};
-        err = s21_create_matrix(A->rows, A->columns, &temp_matrix);
+        matrix_t temp_matrix_2 = {0};
         s21_calc_complements(A, &temp_matrix);
-        s21_transpose(&temp_matrix, result);
-      } else {
-        err = 1;
+        s21_transpose(&temp_matrix, &temp_matrix_2);
+        s21_mult_number(&temp_matrix_2,1.0/det,result);
+          s21_remove_matrix(&temp_matrix);
+          s21_remove_matrix(&temp_matrix_2);
       }
     }
   } else {
