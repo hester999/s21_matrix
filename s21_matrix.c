@@ -191,11 +191,10 @@ int s21_calc_complements(matrix_t *A, matrix_t *result) {
         for (int j = 0; j < A->columns; j++) {
           matrix_t minor_matrix = {0};
           if(A->rows ==1){
-              err = s21_create_matrix(1,1,result);
+
               result->matrix[0][0] = 1;
           }else{
               err = s21_create_matrix(A->rows - 1, A->columns - 1, &minor_matrix);
-
               if (!err) {
                 err = s21_get_minor(A, &minor_matrix, i, j);
               }
@@ -286,32 +285,59 @@ int s21_determinant(matrix_t *A, double *result) {
   return err;
 }
 
+
+
 int s21_inverse_matrix(matrix_t *A, matrix_t *result) {
-  int err = 0;
+    int err = 0;
 
-  if (s21_valid_matrix(A)) {
-    err = s21_create_matrix(A->rows, A->columns, result);
-
-    if (A->rows == 1 && s21_valid_matrix(result) && (A->matrix[0][0]!= 0)) {
-      result->matrix[0][0] = (1 / A->matrix[0][0]);
+    if (s21_valid_matrix(A)) {
+        double det = 0;
+        err = s21_determinant(A, &det);
+        if (!err && det != 0) {
+            matrix_t temp_matrix = {0}, temp_matrix_2 = {0};
+            err = s21_calc_complements(A, &temp_matrix);
+            if (!err) err = s21_transpose(&temp_matrix, &temp_matrix_2);
+            if (!err) err = s21_mult_number(&temp_matrix_2, 1.0 / det, result);
+            s21_remove_matrix(&temp_matrix);
+            s21_remove_matrix(&temp_matrix_2);
+        } else {
+            err = (det == 0) ? 2 : err;
+        }
     } else {
-      double det = 0;
-      err = s21_determinant(A, &det);
-      if (det == 0 && !err) {
-        err = 2;
-      } else if (det != 0 && !err) {
-        matrix_t temp_matrix = {0};
-        matrix_t temp_matrix_2 = {0};
-        s21_calc_complements(A, &temp_matrix);
-        s21_transpose(&temp_matrix, &temp_matrix_2);
-        s21_mult_number(&temp_matrix_2,1.0/det,result);
-          s21_remove_matrix(&temp_matrix);
-          s21_remove_matrix(&temp_matrix_2);
-      }
+        err = 1;
     }
-  } else {
-    err = 1;
-  }
 
-  return err;
+    return err;
 }
+
+
+//int s21_inverse_matrix(matrix_t *A, matrix_t *result) {
+//    int err = 0;
+//
+//    if (s21_valid_matrix(A)) {
+//        err = s21_create_matrix(A->rows, A->columns, result);
+//
+//        if (A->rows == 1 && s21_valid_matrix(result) && (A->matrix[0][0]!= 0)) {
+//            result->matrix[0][0] = (1 / A->matrix[0][0]);
+//        } else {
+//            double det = 0;
+//            err = s21_determinant(A, &det);
+//            if (det == 0 && !err) {
+//                err = 2;
+//            } else if (det != 0 && !err) {
+//                matrix_t temp_matrix = {0};
+//                matrix_t temp_matrix_2 = {0};
+//                s21_calc_complements(A, &temp_matrix);
+//                s21_transpose(&temp_matrix, &temp_matrix_2);
+//                s21_mult_number(&temp_matrix_2,1.0/det,result);
+//
+//                s21_remove_matrix(&temp_matrix);
+//                s21_remove_matrix(&temp_matrix_2);
+//            }
+//        }
+//    } else {
+//        err = 1;
+//    }
+//
+//    return err;
+//}
