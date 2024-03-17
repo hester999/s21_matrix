@@ -1,13 +1,15 @@
-//#include "stdio.h"
-//#include "s21_matrix.h"
-//int main() {
-//    matrix_t a={0};
-//    matrix_t b={0};
-//    matrix_t res={0};
-//
-//    s21_create_matrix(1, 2, &a);
-//    int test = s21_inverse_matrix(&a, &res);
-//
-//    printf("%d\n",test);
-//    return 0;
-//}
+#include "s21_matrix.h"
+#include "stdio.h"
+int main() {
+  matrix_t A = {0}, result = {0};
+
+  s21_create_matrix(1, 1, &A);
+  s21_create_matrix(1, 1, &result);
+  A.matrix[0][0] = 2;
+
+  s21_inverse_matrix(&A, &result);
+
+  printf("%lf\n", result.matrix[0][0]);
+
+  return 0;
+}

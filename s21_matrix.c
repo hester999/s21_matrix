@@ -25,7 +25,6 @@ int s21_create_matrix(int rows, int columns, matrix_t *result) {
 }
 
 void s21_remove_matrix(matrix_t *A) {
-
   if (A->matrix != NULL) {
     for (int i = 0; i < A->rows; i++) {
       free(A->matrix[i]);
@@ -140,10 +139,10 @@ int s21_mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
       err = s21_create_matrix(A->rows, B->columns, result);
       for (int i = 0; i < A->rows; i++) {
         for (int j = 0; j < B->columns; j++) {
-              double sum = 0;
-              for (int k = 0; k < B->rows; k++) {
-                sum  = sum +A->matrix[i][k] * B->matrix[k][j];
-              }
+          double sum = 0;
+          for (int k = 0; k < B->rows; k++) {
+            sum = sum + A->matrix[i][k] * B->matrix[k][j];
+          }
           result->matrix[i][j] = sum;
         }
       }
@@ -156,23 +155,18 @@ int s21_mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
   return err;
 }
 
-
-
-
-
-
 int s21_transpose(matrix_t *A, matrix_t *result) {
   int err = 0;
   if (s21_valid_matrix(A)) {
     err = s21_create_matrix(A->columns, A->rows, result);
-    if(s21_valid_matrix(result)){
-        for (int i = 0; i < A->rows; i++) {
-            for (int j = 0; j < A->columns; j++) {
-                result->matrix[j][i] = A->matrix[i][j];
-            }
+    if (s21_valid_matrix(result)) {
+      for (int i = 0; i < A->rows; i++) {
+        for (int j = 0; j < A->columns; j++) {
+          result->matrix[j][i] = A->matrix[i][j];
         }
-    }else{
-        err =1 ;
+      }
+    } else {
+      err = 1;
     }
 
   } else {
@@ -190,19 +184,18 @@ int s21_calc_complements(matrix_t *A, matrix_t *result) {
       for (int i = 0; i < A->rows; i++) {
         for (int j = 0; j < A->columns; j++) {
           matrix_t minor_matrix = {0};
-          if(A->rows ==1){
+          if (A->rows == 1) {
+            result->matrix[0][0] = 1;
+          } else {
+            err = s21_create_matrix(A->rows - 1, A->columns - 1, &minor_matrix);
+            if (!err) {
+              err = s21_get_minor(A, &minor_matrix, i, j);
+            }
+            double temp = 0;
+            s21_determinant(&minor_matrix, &temp);
+            result->matrix[i][j] = pow(-1, i + j) * temp;
 
-              result->matrix[0][0] = 1;
-          }else{
-              err = s21_create_matrix(A->rows - 1, A->columns - 1, &minor_matrix);
-              if (!err) {
-                err = s21_get_minor(A, &minor_matrix, i, j);
-              }
-              double temp = 0;
-              s21_determinant(&minor_matrix, &temp);
-              result->matrix[i][j] = pow(-1, i + j) * temp;
-
-              s21_remove_matrix(&minor_matrix);
+            s21_remove_matrix(&minor_matrix);
           }
         }
       }
@@ -285,59 +278,57 @@ int s21_determinant(matrix_t *A, double *result) {
   return err;
 }
 
-
-
 int s21_inverse_matrix(matrix_t *A, matrix_t *result) {
-    int err = 0;
+  int err = 0;
 
-    if (s21_valid_matrix(A)) {
-        double det = 0;
-        err = s21_determinant(A, &det);
-        if (!err && det != 0) {
-            matrix_t temp_matrix = {0}, temp_matrix_2 = {0};
-            err = s21_calc_complements(A, &temp_matrix);
-            if (!err) err = s21_transpose(&temp_matrix, &temp_matrix_2);
-            if (!err) err = s21_mult_number(&temp_matrix_2, 1.0 / det, result);
-            s21_remove_matrix(&temp_matrix);
-            s21_remove_matrix(&temp_matrix_2);
-        } else {
-            err = (det == 0) ? 2 : err;
-        }
+  if (s21_valid_matrix(A)) {
+    double det = 0;
+    err = s21_determinant(A, &det);
+    if (!err && det != 0) {
+      matrix_t temp_matrix = {0}, temp_matrix_2 = {0};
+      err = s21_calc_complements(A, &temp_matrix);
+      if (!err) err = s21_transpose(&temp_matrix, &temp_matrix_2);
+      if (!err) err = s21_mult_number(&temp_matrix_2, 1.0 / det, result);
+      s21_remove_matrix(&temp_matrix);
+      s21_remove_matrix(&temp_matrix_2);
     } else {
-        err = 1;
+      err = (det == 0) ? 2 : err;
     }
+  } else {
+    err = 1;
+  }
 
-    return err;
+  return err;
 }
 
-
-//int s21_inverse_matrix(matrix_t *A, matrix_t *result) {
-//    int err = 0;
+// int s21_inverse_matrix(matrix_t *A, matrix_t *result) {
+//     int err = 0;
 //
-//    if (s21_valid_matrix(A)) {
-//        err = s21_create_matrix(A->rows, A->columns, result);
+//     if (s21_valid_matrix(A)) {
+//         err = s21_create_matrix(A->rows, A->columns, result);
 //
-//        if (A->rows == 1 && s21_valid_matrix(result) && (A->matrix[0][0]!= 0)) {
-//            result->matrix[0][0] = (1 / A->matrix[0][0]);
-//        } else {
-//            double det = 0;
-//            err = s21_determinant(A, &det);
-//            if (det == 0 && !err) {
-//                err = 2;
-//            } else if (det != 0 && !err) {
-//                matrix_t temp_matrix = {0};
-//                matrix_t temp_matrix_2 = {0};
-//                s21_calc_complements(A, &temp_matrix);
-//                s21_transpose(&temp_matrix, &temp_matrix_2);
-//                s21_mult_number(&temp_matrix_2,1.0/det,result);
+//         if (A->rows == 1 && s21_valid_matrix(result) && (A->matrix[0][0]!=
+//         0)) {
+//             result->matrix[0][0] = (1 / A->matrix[0][0]);
+//         } else {
+//             double det = 0;
+//             err = s21_determinant(A, &det);
+//             if (det == 0 && !err) {
+//                 err = 2;
+//             } else if (det != 0 && !err) {
+//                 matrix_t temp_matrix = {0};
+//                 matrix_t temp_matrix_2 = {0};
+//                 s21_calc_complements(A, &temp_matrix);
+//                 s21_transpose(&temp_matrix, &temp_matrix_2);
+//                 s21_mult_number(&temp_matrix_2,1.0/det,result);
 //
-//                s21_remove_matrix(&temp_matrix);
-//                s21_remove_matrix(&temp_matrix_2);
-//            }
-//        }
-//    } else {
-//        err = 1;
-//    }
+//                 s21_remove_matrix(&temp_matrix);
+//                 s21_remove_matrix(&temp_matrix_2);
+//             }
+//         }
+//     } else {
+//         err = 1;
+//     }
 //
-//    return err;
-//}
+//     return err;
+// }

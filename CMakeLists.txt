@@ -7,3 +7,5 @@ add_executable(matrix_ main.c
         s21_matrix.h
         s21_matrix.c
         s21_test.c)
+
+

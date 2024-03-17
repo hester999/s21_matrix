@@ -1,0 +1,5 @@
+# ninja log v5
+2	80	1709940985727428924	CMakeFiles/matrix_.dir/s21_test.c.o	e07aba1c87199f5f
+1	179	1710678627374708449	CMakeFiles/matrix_.dir/main.c.o	f26bb5a188842638
+1	179	1710678627376784974	CMakeFiles/matrix_.dir/s21_matrix.c.o	f61b5090855abda
+179	274	1710678627470009533	matrix_	38cf0252be84166f

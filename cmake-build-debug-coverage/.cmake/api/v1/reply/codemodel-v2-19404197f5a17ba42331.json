@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "matrix_::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-matrix_-Debug-59f7f645aca3b006d440.json",
+					"jsonFile" : "target-matrix_-Debug-8340e5d9b482c41cad47.json",
 					"name" : "matrix_",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/hester/Documents/Clion/matrix /cmake-build-debug",
-		"source" : "/Users/hester/Documents/Clion/matrix "
+		"build" : "/Users/hester/Documents/Clion/s21_matrix/cmake-build-debug-coverage",
+		"source" : "/Users/hester/Documents/Clion/s21_matrix"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 5
+		"minor" : 6
 	}
 }

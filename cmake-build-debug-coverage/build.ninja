@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /Users/hester/Documents/Clion/s21_matrix/cmake-build-debug/
+cmake_ninja_workdir = /Users/hester/Documents/Clion/s21_matrix/cmake-build-debug-coverage/
 # =============================================================================
 # Object build statements for EXECUTABLE target matrix_
 
@@ -51,7 +51,7 @@ build cmake_object_order_depends_target_matrix_: phony || CMakeFiles/matrix_.dir
 
 build CMakeFiles/matrix_.dir/main.c.o: C_COMPILER__matrix__unscanned_Debug /Users/hester/Documents/Clion/s21_matrix/main.c || cmake_object_order_depends_target_matrix_
   DEP_FILE = CMakeFiles/matrix_.dir/main.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics
+  FLAGS = -fcoverage-mapping -fprofile-instr-generate -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/matrix_.dir
   OBJECT_FILE_DIR = CMakeFiles/matrix_.dir
   TARGET_COMPILE_PDB = CMakeFiles/matrix_.dir/
@@ -59,7 +59,7 @@ build CMakeFiles/matrix_.dir/main.c.o: C_COMPILER__matrix__unscanned_Debug /User
 
 build CMakeFiles/matrix_.dir/s21_matrix.c.o: C_COMPILER__matrix__unscanned_Debug /Users/hester/Documents/Clion/s21_matrix/s21_matrix.c || cmake_object_order_depends_target_matrix_
   DEP_FILE = CMakeFiles/matrix_.dir/s21_matrix.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics
+  FLAGS = -fcoverage-mapping -fprofile-instr-generate -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/matrix_.dir
   OBJECT_FILE_DIR = CMakeFiles/matrix_.dir
   TARGET_COMPILE_PDB = CMakeFiles/matrix_.dir/
@@ -67,7 +67,7 @@ build CMakeFiles/matrix_.dir/s21_matrix.c.o: C_COMPILER__matrix__unscanned_Debug
 
 build CMakeFiles/matrix_.dir/s21_test.c.o: C_COMPILER__matrix__unscanned_Debug /Users/hester/Documents/Clion/s21_matrix/s21_test.c || cmake_object_order_depends_target_matrix_
   DEP_FILE = CMakeFiles/matrix_.dir/s21_test.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics
+  FLAGS = -fcoverage-mapping -fprofile-instr-generate -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/matrix_.dir
   OBJECT_FILE_DIR = CMakeFiles/matrix_.dir
   TARGET_COMPILE_PDB = CMakeFiles/matrix_.dir/
@@ -82,7 +82,7 @@ build CMakeFiles/matrix_.dir/s21_test.c.o: C_COMPILER__matrix__unscanned_Debug /
 # Link the executable matrix_
 
 build matrix_: C_EXECUTABLE_LINKER__matrix__Debug CMakeFiles/matrix_.dir/main.c.o CMakeFiles/matrix_.dir/s21_matrix.c.o CMakeFiles/matrix_.dir/s21_test.c.o
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk
+  FLAGS = -fcoverage-mapping -fprofile-instr-generate -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk
   OBJECT_DIR = CMakeFiles/matrix_.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -95,7 +95,7 @@ build matrix_: C_EXECUTABLE_LINKER__matrix__Debug CMakeFiles/matrix_.dir/main.c.
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/hester/Documents/Clion/s21_matrix/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /Users/hester/Documents/Clion/s21_matrix/cmake-build-debug-coverage && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -106,7 +106,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/hester/Documents/Clion/s21_matrix/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake --regenerate-during-build -S/Users/hester/Documents/Clion/s21_matrix -B/Users/hester/Documents/Clion/s21_matrix/cmake-build-debug
+  COMMAND = cd /Users/hester/Documents/Clion/s21_matrix/cmake-build-debug-coverage && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake --regenerate-during-build -S/Users/hester/Documents/Clion/s21_matrix -B/Users/hester/Documents/Clion/s21_matrix/cmake-build-debug-coverage
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -122,7 +122,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /Users/hester/Documents/Clion/s21_matrix/cmake-build-debug
+# Folder: /Users/hester/Documents/Clion/s21_matrix/cmake-build-debug-coverage
 
 build all: phony matrix_
 

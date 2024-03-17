@@ -108,14 +108,14 @@ START_TEST(mult_number_1) {
 }
 END_TEST
 
-//START_TEST(mult_number_2) {
-//  matrix_t A = {0};
-//  s21_create_matrix(1, 1, &A);
-//  int ret  = s21_mult_number(&A, 5., (void *)0);
-//  ck_assert_int_eq(ret, FAIL_INCORRECT_MATRIX);
-//  s21_remove_matrix(&A);
-//}
-//END_TEST
+START_TEST(mult_number_2) {
+  matrix_t A = {0};
+  s21_create_matrix(1, 1, &A);
+  int ret  = s21_mult_number(&A, 5., (void *)0);
+  ck_assert_int_eq(ret, FAIL_INCORRECT_MATRIX);
+  s21_remove_matrix(&A);
+}
+END_TEST
 
 START_TEST(mult_number_3) {
   matrix_t A = {0}, result = {0};
@@ -153,7 +153,7 @@ Suite *test_matrix_mul(void) {
   tcase_add_test(tc, s21_mult_number_test2);
 //
   tcase_add_test(tc, mult_number_1);
-//  tcase_add_test(tc, mult_number_2);
+  tcase_add_test(tc, mult_number_2);
   tcase_add_test(tc, mult_number_3);
 
   suite_add_tcase(s, tc);
